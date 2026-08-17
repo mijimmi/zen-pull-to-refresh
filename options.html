@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Pull to Refresh — Options</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --fg: #16161a;
+    --muted: #6b6b76;
+    --bg: #ffffff;
+    --line: rgba(0,0,0,.10);
+    --accent: #3b7ddd;
+    --field: #fbfbfc;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --fg: #ececf1; --muted: #9a9aa6; --bg: #1c1c1f;
+      --line: rgba(255,255,255,.12); --accent: #7aa9f7; --field: #232327;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 18px 20px 22px;
+    min-width: 380px;
+    font: 13px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--fg);
+    background: var(--bg);
+  }
+  h1 { font-size: 15px; margin: 0 0 2px; font-weight: 600; }
+  .sub { color: var(--muted); font-size: 12px; margin: 0 0 18px; }
+  .row { padding: 13px 0; border-top: 1px solid var(--line); }
+  .row:first-of-type { border-top: 0; }
+  label.head { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-weight: 500; }
+  .hint { color: var(--muted); font-size: 11.5px; margin-top: 5px; }
+  input[type=range] { width: 100%; margin: 12px 0 0; accent-color: var(--accent); }
+  input[type=checkbox] { accent-color: var(--accent); width: 15px; height: 15px; }
+  select, textarea {
+    width: 100%; margin-top: 8px; padding: 7px 8px;
+    font: inherit; color: var(--fg); background: var(--field);
+    border: 1px solid var(--line); border-radius: 6px;
+  }
+  textarea { min-height: 74px; resize: vertical; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; }
+  .val { color: var(--accent); font-variant-numeric: tabular-nums; font-weight: 600; }
+  footer { display: flex; align-items: center; gap: 10px; margin-top: 18px; }
+  button {
+    font: inherit; padding: 7px 14px; border-radius: 6px; cursor: pointer;
+    border: 1px solid var(--line); background: var(--field); color: var(--fg);
+  }
+  button.primary { background: var(--accent); border-color: transparent; color: #fff; font-weight: 500; }
+  #saved { color: var(--muted); font-size: 12px; opacity: 0; transition: opacity .2s; }
+  #saved.show { opacity: 1; }
+</style>
+</head>
+<body>
+  <h1>Pull to Refresh</h1>
+  <p class="sub">Overscroll upward at the top of a page to reload it.</p>
+
+  <div class="row">
+    <label class="head" for="enabled">
+      <span>Enabled</span>
+      <input type="checkbox" id="enabled">
+    </label>
+  </div>
+
+  <div class="row">
+    <label class="head" for="threshold">
+      <span>Pull distance</span>
+      <span class="val"><span id="thresholdVal">150</span> px</span>
+    </label>
+    <input type="range" id="threshold" min="60" max="400" step="10">
+    <div class="hint">How far you have to keep scrolling past the top before it commits. Higher is harder to trigger by accident.</div>
+  </div>
+
+  <div class="row">
+    <label class="head" for="indicator"><span>Indicator</span></label>
+    <select id="indicator">
+      <option value="spinner">Spinner arc</option>
+      <option value="bar">Thin progress bar</option>
+      <option value="none">None</option>
+    </select>
+  </div>
+
+  <div class="row">
+    <label class="head" for="blocklist"><span>Never refresh on these sites</span></label>
+    <textarea id="blocklist" spellcheck="false" placeholder="mail.google.com&#10;*.figma.com&#10;docs.google.com"></textarea>
+    <div class="hint">One hostname per line. Subdomains are matched automatically; <code>*.example.com</code> also works.</div>
+  </div>
+
+  <footer>
+    <button class="primary" id="save">Save</button>
+    <button id="reset">Reset to defaults</button>
+    <span id="saved">Saved</span>
+  </footer>
+
+  <script src="options.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+{
+  "manifest_version": 2,
+  "name": "Pull to Refresh",
+  "version": "1.0.0",
+  "description": "Overscroll upward at the top of a page to reload it, like mobile browsers.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "pull-to-refresh@local.jimmy",
+      "strict_min_version": "115.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  },
+  "permissions": [
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "all_frames": false
+    }
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false,
+    "browser_style": false
+  },
+  "icons": {
+    "48": "icons/icon.svg",
+    "96": "icons/icon.svg"
+  }
+}
